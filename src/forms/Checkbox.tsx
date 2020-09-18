@@ -114,7 +114,14 @@ const Indicator = styled.div<InternalProps>`
 `;
 
 const Checkbox = ({ label, caption, id, disabled, ...props }: Props) => {
-  const [field, meta] = useField({ name: id, type: "checkbox" });
+  const [field, meta, { setTouched }] = useField({ name: id, type: "checkbox" });
+
+  // Chrome and Safari do not send blur events correctly
+  const onChange = React.useCallback((e: React.ChangeEvent) => {
+    field.onChange(e);
+    setTouched(true);
+  }, [field.onChange, setTouched]);
+
   return (
     <Box {...props}>
       <Label disabled={disabled} htmlFor={id}>
@@ -122,6 +129,7 @@ const Checkbox = ({ label, caption, id, disabled, ...props }: Props) => {
         {caption ? <InputCaption pt="1">{caption}</InputCaption> : null}
         <HiddenInput
           {...field}
+          onChange={onChange}
           value={id}
           name={id}
           id={id}
