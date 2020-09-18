@@ -510,7 +510,7 @@ type Props = InnerProps & {
 const Svg = styled.svg<InnerProps>`
   * {
     fill: ${p => p.theme.colors[p.fill] || p.fill};
-    stroke: ${p => p.stroke && p.theme.colors[p.stroke] || p.stroke || p.fill};
+    stroke: ${p => p.stroke && p.theme.colors[p.stroke] || p.stroke };
   }
   ${layout};
   ${space};
