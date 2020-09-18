@@ -420,6 +420,14 @@ const Upload = () => (
   </>
 );
 
+const Menu = () => (
+  <>
+    <path d="M4 8H12" fillRule="evenodd" clipRule="evenodd" />
+    <path d="M12 5H4" fillRule="evenodd" clipRule="evenodd" />
+    <path d="M4 11H12"  fillRule="evenodd" clipRule="evenodd" />
+  </>
+);
+
 
 type IconList = {
   [key: string]: () => JSX.Element;
@@ -484,6 +492,7 @@ const iconList: IconList = {
   TrashCan,
   Boot,
   Upload,
+  Menu,
 };
 
 type InnerProps = PositionProps &
