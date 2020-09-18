@@ -114,7 +114,14 @@ const Indicator = styled.div<InternalProps>`
 `;
 
 const Radio = ({ label, caption, name, id, disabled, ...props }: Props) => {
-  const [field, meta] = useField({ name, id, value: id, type: "radio" });
+  const [field, meta, { setTouched }] = useField({ name, id, value: id, type: "radio" });
+
+  // Chrome and Safari do not send blur events correctly
+  const onChange = React.useCallback((e: React.ChangeEvent) => {
+    field.onChange(e);
+    setTouched(true);
+  }, [field.onChange, setTouched]);
+
   return (
     <Box {...props}>
       <Label disabled={disabled} htmlFor={id} {...props}>
@@ -122,6 +129,7 @@ const Radio = ({ label, caption, name, id, disabled, ...props }: Props) => {
         {caption ? <InputCaption>{caption}</InputCaption> : null}
         <HiddenInput
           {...field}
+          onChange={onChange}
           value={id}
           name={name}
           id={id}
